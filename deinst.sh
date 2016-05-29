@@ -6,6 +6,7 @@ make -f erandugen.mak clean
 make -f erandunorm.mak clean
 make -f erandupat.mak clean
 make -f erandupbm.mak clean
+make -f eranduppm.mak clean
 make -f eranduraw.mak clean
 make -f erandutim.mak clean
 make -f mcbell.mak clean
