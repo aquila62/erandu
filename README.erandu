@@ -1,0 +1,105 @@
+erandu is a random number generator (RNG) that produces unsigned
+integers.  The top 8 bits in the output follow a uniform distribution.
+erandu is based on 1024 32-bit states.  erandu uses these 1024 states
+to perform a Bays-Durham shuffle.  The 'e' in "erandu" means
+"extended randu", because the period length of erandu is much longer
+than the original RANDU algorithm, created by IBM during the 1960's.
+
+erandu is based on a very unreliable algorithm, RANDU.  RANDU
+fails the spectral test in three dimensions.  But by extending
+the algorithm with the Bays-Durham shuffle, erandu passes the
+critical random number tests of dieharder and TestU01.
+
+The period length of erandu is so long that it can never be tested.
+Because of the Bays-Durham shuffle, the period length is theoretically
+5.42e+2639, or the factorial of 1024.
+
+Test results.
+
+The erandu random number generator has tested successfully with the
+top 8 bits in the following tests.
+
+    dieharder -a
+    TestU01 Crush
+    National Institute of Standards and Technology STS test suite.
+
+The dieharder test yielded four weak p-values and no fails.
+
+The TestU01 Crush test yielded no fails.
+
+Most of the STS tests are easy to pass, and so passing them does
+not validate a generator to any great degree.  Nevertheless,
+erandu passed the STS suite of tests, especially the harder tests.
+TestU01 incorporates the STS suite of tests into its own Crush
+suite.  Dieharder incorporates George Marsaglia's original diehard
+suite of tests.
+
+Benchmarking.
+
+erandu performs about 2.25 times faster than the taus2 generator
+in the GNU Scientific Library (GSL).
+
+When testing erandu as input to dieharder -g 200, be cautioned
+that the raw input feature of dieharder slows down the test.
+It is better to integrate erandu into dieharder as an internal
+random number generator in the 600 series of generators.
+
+The same is true with TestU01.  It is better to integrate erandu
+as an internal random number generator in order to speed up the
+test.
+
+When fed as raw input to dieharder through a pipe, the erandu
+generator consumes about 15% of the CPU, while dieharder consumes
+about 75%.
+
+Initialization.
+
+The 1024 states in erandu may be odd random numbers.  erandu is
+initialized to more than 4096 bytes of random data.  If you
+wish, you may override the initial values of the state array, so
+that you may conduct regression tests. You will also have to
+initialize the current and two previous seeds as odd random numbers.
+All of the erandu states are available to the programmer through a
+structure.  See erandu.h for the structure.
+
+Distributed processing.
+
+erandu is conducive to running on a Beowulf style of supercomputer.
+Each of its 1024 states may be manipulated independently in separate
+nodes of the supercomputer.  The one bottle neck occurs during the
+Bays-Durham shuffle, when the state array is being changed.
+I see no reason why erandu could not keep pace with the fastest
+supercomputer in a scientific experiment.
+
+Supporting subroutines.
+
+The erandu generator has four subroutines that depend on it.
+The calling program is responsible for passing valid parameters.
+Each subroutine may be called billions of times in a scientific
+experiment, and validation in the subroutine would be redundant
+in most cases.
+
+eranduunif.c produces a uniform random number from 0 - 1.  Its only
+parameter is the erandu structure.
+
+eranduint.c produces a uniform random integer from 0 up to a limit.
+It has two parameters, the erandu structure, and the limit.  The
+limit may be negative or positive.
+
+erandupwr.c produces an unsigned integer of 1 to 16 bits.  It has
+two parameters, the erandu structure, and the number of bits.
+
+erandubit.c produces a boolean value of zero or one.  Its only
+parameter is the erandu structure.
+
+Utilities.
+
+erandugen.c produces a raw stream of 8 bit unsigned characters to stdout.
+
+erandugen is used to feed random bits into down stream programs, such
+as the STS suite of tests or a random walk.
+
+See TESTING for more information.
+See INSTALL for more installation.
+
+The website for erandu is at https://aquila62.github.io.
