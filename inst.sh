@@ -5,6 +5,7 @@ make -f erandudots.mak
 make -f erandugen.mak
 make -f erandunorm.mak
 make -f erandupat.mak
+make -f erandupbm.mak
 make -f eranduraw.mak
 make -f erandutim.mak
 make -f mcbell.mak
