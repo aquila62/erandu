@@ -214,11 +214,15 @@ Create a PBM format graphic file based on the erandudots.c
 program.
 
 ./erandupbm | pnmtopng >erandudots.png
+./erandupbm | display
 
 The output from erandupbm is an ASCII PBM file on stdout.
 See the picture erandudots.png for an example of this
 output.  The PBM file was converted to PNG format using
 the Netpbm package.  The conversion program is pnmtopng.
+
+The display program uses ImageMagick to display the
+PBM output file. Press 'q' to quit the display program.
 
 ------------------------------------------------------
 
