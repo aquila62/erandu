@@ -29,6 +29,18 @@ This is a second version of the classic visual test, which
 shows that the original RANDU random number generator failed
 the randomness test.
 
+RANDU algorithms.
+
+There are two RANDU algorithms:
+
+   * multiplication by 65539
+   * multiplication by shifts and adds
+
+The first algorithm is the fastest, when not scaled.
+The second algorithm is slower, but better for scaling.
+The RANDU algorithm can be scaled to use larger seeds
+than are used in erandu.
+
 Period length.
 
 The period length of erandu is so long that it can never be tested.
