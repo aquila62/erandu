@@ -20,3 +20,5 @@ make -f pwrball.mak clean
 make -f ranwlk.mak clean
 make -f tsterandu.mak clean
 make -f uintchi.mak clean
+make -f z80rnd.mak clean
+make -f randu.mak clean         # uses z80asm assembler
