@@ -1,9 +1,10 @@
-erandu is a random number generator (RNG) that produces unsigned
-integers.  The top 8 bits in the output follow a uniform distribution.
-erandu is based on 1024 32-bit states.  erandu uses these 1024 states
-to perform a Bays-Durham shuffle.  The 'e' in "erandu" means
-"extended randu", because the period length of erandu is much longer
-than the original RANDU algorithm, created by IBM during the 1960's.
+erandu is a random number generator (RNG) that outputs unsigned
+integers.  The top 8 bits in the output follow a uniform random
+distribution.  erandu is based on 1024 32-bit states.  erandu uses
+these 1024 states to perform a Bays-Durham shuffle.  The 'e' in
+"erandu" stands for "extended randu", because the period length of
+erandu is much longer than the original RANDU algorithm, created
+by IBM during the 1960's.
 
 erandu is based on a very unreliable algorithm, RANDU.  RANDU
 fails the spectral test in three dimensions.  But by extending
@@ -43,7 +44,7 @@ than are used in erandu.
 
 Period length.
 
-The period length of erandu is so long that it can never be tested.
+The period length of erandu is so long that it cannot be tested.
 Because of the Bays-Durham shuffle, the period length is theoretically
 5.42e+2639, or the factorial of 1024.
 
@@ -127,10 +128,15 @@ parameter is the erandu structure.
 
 Utilities.
 
-erandugen.c produces a raw stream of 8 bit unsigned characters to stdout.
+erandugen.c produces an ASCII stream of zeros and ones to stdout.
 
 erandugen is used to feed random bits into down stream programs, such
 as the STS suite of tests or a random walk.
+
+erandugen.c produces a raw, binary stream to stdout.
+
+eranduraw is used to feed a random stream into down stream programs,
+such as dieharder and TestU01.
 
 See TESTING for more information.
 See INSTALL for more installation.
