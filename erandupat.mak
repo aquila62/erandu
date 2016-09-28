@@ -36,8 +36,6 @@ CFLAGS=-c -Wall -O2
 
 LDFLAGS=-lncurses -lgsl -lgslcblas -lm
 
-all:			$(OBJ) erandupat
-
 erandupat:		$(OBJ)
 	$(CC) -Wall -O2 $(OBJ) -o erandupat $(LDFLAGS)
 
