@@ -165,12 +165,20 @@ number of degrees of freedom based on lambda.
 ------------------------------------------------------
 
 The Anderson-Darling test for a normal distribution is
-not included in this repository, because it requires a
-statistical package, like R and the nortest library.
-In my own testing, erandunorm has passed the Anderson-
-Darling test in the R package.  Input to the test was
-a Gaussian distribution created by the Box-Muller transform.
-erandunorm.c produces numbers in the normal distribution.
+included only as an example in this repository, because
+it requires a statistical package, like R and the nortest
+library.
+
+To test erandunorm, run the script tstnorm.sh.
+
+Usage:
+
+./tstnorm.sh
+
+Program erandunorm generates data in a normal distribution
+using the Box-Muller transform.
+
+The following is the syntax for program erandunorm.
 
 Usage:
 ./erandunorm mean stdev size
@@ -179,7 +187,7 @@ Example:
 ./erandunorm 15.0 2.0 5000
 
 The R package requires an upper limit of 5000 numbers
-as input a test.
+as input to a test.
 
 ------------------------------------------------------
 
@@ -252,6 +260,41 @@ line on an X Windows screen.  To quit press any key.
 
 ------------------------------------------------------
 
+Captcha generator with random background and partially
+random text colors.
+
+Requires the Netpbm package.
+
+sudo apt-get netpbm
+
+Usage:
+
+echo "text" | captcha | pnmtopng >mycaptcha.png
+
+Uses font.txt 12x24 font file.
+
+------------------------------------------------------
+
+Generate a stream of random DNA base pairs.
+Display the DNA base pairs as parallel strands.
+
+Usage:
+
+gendna | pair | less
+
+The output looks like:
+
+AGAAAGAGCAAGGATGAAAACGCGTATATTAGTGAGAATCTGGTACGTGTTTCGGTACGCGTTCCCAAGAGG
+TCTTTCTCGTTCCTACTTTTGCGCATATAATCACTCTTAGACCATGCACAAAGCCATGCGCAAGGGTTCTCC
+--------
+TAGTTGGTGCTAATGGCTACCATAATATATTGTTGTTCTGCCGGTAGATATCCCCGCTGCCGGGCCTGCGCG
+ATCAACCACGATTACCGATGGTATTATATAACAACAAGACGGCCATCTATAGGGGCGACGGCCCGGACGCGC
+--------
+
+A pairs with T, G pairs with C, etc.
+
+------------------------------------------------------
+
 Random Powerball Simulation:  pwrball
 pwrball is a random lottery game based on real odds
 and real pay-outs.  The jackpot is $1 Billion.
@@ -291,6 +334,71 @@ gives you examples of how to set up a test.  In particular,
 you need to use ufile to read input from eranduraw in your test.
 After you get over the learning curve, you will be rewarded
 with some strong and varied tests.
+
+------------------------------------------------------
+
+Test an encryption program using the erandu random
+number generator to encrypt data.
+
+The following test does double encryption to obtain the
+original stream of data.
+
+Usage:
+
+tstencr.sh filename password
+
+Example:
+
+tstencr.sh /vmlinuz abcdef
+
+The output shows two identical md5sum strings.
+
+----
+
+Use an alpha text generator for testing the encryption.
+The encryption algorithm is validated with two dieharder
+tests.  The first test passes with encryption.  The second
+test fails without encryption.
+
+The following test proves that a non-random plain text file
+can be enhanced with encryption to pass statistical
+tests for randomness.
+
+Usage:
+
+tstdiee.sh alphabet password
+
+Examples:
+
+tstdiee.sh "abc" "defghi"
+tstdiee.sh abc defghi
+
+The output is a dieharder summary report.
+It should show mostly successes with only a couple
+of WEAK results.
+
+This is a long running test.  Press CTL-C to interrupt it.
+
+----
+
+This test shows that a plain text stream of data fails
+a battery of tests for randomness.
+
+Usage:
+
+tstdiea.sh alphabet
+
+Examples:
+
+tstdiee.sh "abc"
+tstdiee.sh abc
+tstdiee.sh abcdefghijklmnopqrstuvwxyz
+tstdiee.sh 0123456789
+
+The output is a dieharder summary report.  It should show
+almost all failures.
+
+This is a long running test.  Press CTL-C to interrupt it.
 
 ------------------------------------------------------
 
