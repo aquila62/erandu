@@ -29,7 +29,7 @@
 #include <math.h>
 #include "erandu.h"
 
-#define MAXINT 4294967296.0
+#define MAXINT 2147483648.0
 
 int eranduint(rufmt *ru, int limit)
    {

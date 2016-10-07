@@ -21,7 +21,7 @@
 /********************************************************/
 /* erandu: "extended RANDU"                             */
 /* This subroutine produces a random unsigned           */
-/* 32-bit integer using the RANDU algorithm plus a      */
+/* 31-bit integer using the RANDU algorithm plus a      */
 /* Bays-Durham shuffle.  The previous two cycles are    */
 /* xor'd together with the current cycle.               */
 /* The speed of erandu is 1/3 faster than the GSL       */
@@ -40,7 +40,7 @@ unsigned int erandu(rufmt *ru)
    /**********************************************************/
    /* calculate a 10-bit offset into the state array         */
    /* See the Bays-Durham shuffle below.                     */
-   ru->ofst  = ru->pprev >> 22;   /* offset into state array */
+   ru->ofst  = ru->pprev >> 21;   /* offset into state array */
    ru->pprev = ru->prev;   /* prev prev <== prev             */
    ru->prev  = ru->s;      /* prev <== current               */
    /* calculate new current state                            */
@@ -48,7 +48,6 @@ unsigned int erandu(rufmt *ru)
    /* The  macro is in erandu.h                              */
    /* XOR the two previous outputs with the current output   */
    RANDU;
-   ru->s = (ru->s ^ ru->prev ^ ru->pprev);
 
    /********************************************************/
    /* Bays-Durham shuffle of state array                   */
@@ -64,5 +63,7 @@ unsigned int erandu(rufmt *ru)
    ru->s = tmp;
    /*********************************************************/
    /* return the output of the erandu cycle after the swap  */
-   return(ru->s);
+   /*********************************************************/
+   ru->out = (ru->s ^ ru->prev ^ ru->pprev);
+   return(ru->out);
    } /* erandu subroutine */

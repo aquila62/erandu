@@ -19,7 +19,7 @@
    /* Boston, MA 02111-1307, USA.                                    */
 
 /* this subroutine generates a random unsigned integer     */
-/* from 1 to 32 bits                                       */
+/* from 1 to 31 bits                                       */
 /* For performance reasons the parameter must be validated */
 /* by the calling program.                                 */
 /* See eranduint.c for generating a random signed integer   */
@@ -28,7 +28,13 @@
 
 unsigned int erandupwr(rufmt *ru, int bits)
    {
+   int i;
    unsigned int intgr;      /* output UINT */
-   intgr = (erandu(ru) >> (32-bits));
+   intgr = 0;
+   i = bits;
+   while (i--)
+      {
+      intgr = (intgr << 1) | erandubit(ru);
+      } /* for each bit */
    return(intgr);           /* return random unsigned integer */
    } /* erandupwr */

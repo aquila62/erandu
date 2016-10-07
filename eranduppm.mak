@@ -21,7 +21,8 @@
 OBJ=eranduppm.o \
 	eranduinit.o \
 	erandu.o \
-	erandupwr.o
+	erandupwr.o \
+	erandubit.o
 
 CC=gcc
 
@@ -43,6 +44,9 @@ erandu.o:			erandu.c
 
 erandupwr.o:			erandupwr.c
 		$(CC) $(CFLAGS) erandupwr.c
+
+erandubit.o:			erandubit.c
+		$(CC) $(CFLAGS) erandubit.c
 
 clean:
 		rm -f $(OBJ) eranduppm

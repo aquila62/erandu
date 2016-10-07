@@ -27,13 +27,14 @@
 typedef struct erandustruct {
    int states;               /* number of states = 1024 */
    unsigned int s;           /* erandu state or seed */
+   unsigned int out;         /* erandu output mod 2^31 */
    unsigned int ofst;        /* offset into state array */
    unsigned int prev;        /* prev output state */
    unsigned int pprev;       /* prev prev output state */
    unsigned int *state;      /* state array of 1024 members */
    } rufmt;
 
-#define RANDU (ru->s = ((ru->s * 65539) & 0xffffffff))
+#define RANDU (ru->s = ((ru->s * 65539) & 0x7fffffff))
 
 rufmt *eranduinit(void);                 /* initialization routine */
 unsigned int erandu(rufmt *ru);          /* random uint generator */

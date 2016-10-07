@@ -158,9 +158,8 @@ int main()
    unsigned char *pic;      /* pointer to the PPM */
    unsigned char *picp;     /* relative pointer for the PPM */
    unsigned char *picq;     /* relative pointer for the PPM */
-   /* the erandu random number generator uses */
-   /* the TAUS algorithm created by Prof. Pierre L'Ecuyer */
-   /* plus the Bays-Durham shuffle */
+   /* the erandu random number generator uses the IBM */
+   /* RANDU algorithm plus the Bays-Durham shuffle */
    rufmt *ru;               /* erandu structure */
    ru = (rufmt *) eranduinit();    /* initialize the erandu generator */
    /*******************************************/

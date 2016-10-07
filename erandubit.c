@@ -22,22 +22,22 @@
 
 int erandubit(rufmt *ru)
    {
+   int i;
+   int bit;
    unsigned int *p;           /* state pointer */
    unsigned int tmp;          /* used for bays-durham shuffle */
    /***********************************************************/
    /* back up the previous two states                         */
    /***********************************************************/
-   ru->ofst  = ru->pprev >> 22;      /* offset into state array  */
+   ru->ofst  = ru->pprev >> 21;      /* offset into state array  */
    ru->pprev = ru->prev;   /* prev ==> prev prev              */
    ru->prev  = ru->s;      /* current ==> prev                */
    /***********************************************************/
    /* Calculate the RANDU algorithm inline to save a call     */
    /* to erandu()                                             */
-   /***********************************************************/
    /* The RANDU macro is in erandu.h                          */
-   /* XOR the previous two results with the current output    */
+   /***********************************************************/
    RANDU;
-   ru->s = (ru->s ^ ru->pprev ^ ru->prev);
    /***********************************************************/
    /* Bays-Durham shuffle of state array                      */
    /* 1024! = 5.41e+2639 base 10 rounded down                 */
@@ -50,6 +50,18 @@ int erandubit(rufmt *ru)
    *p    = ru->s;
    ru->s = tmp;
 
+   /* XOR the previous two results with the current output    */
+   ru->out = (ru->s ^ ru->pprev ^ ru->prev);
+
+   /* XOR the top 8 bits into a single bit */
+   tmp = ru->out >> 23;
+   bit = 0;
+   i = 8;
+   while (i--)
+      {
+      bit ^= tmp;
+      tmp >>= 1;
+      } /* for each of the top 8 bits */
    /* return high order output bit */
-   return(ru->s >> 31);
+   return(bit & 1);
    } /* erandubit subroutine */

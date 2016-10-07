@@ -41,23 +41,23 @@ int main(void)
    q = (double *) tally + 32;
    while (p < q) *p++ = 0.0;
    /********************************************/
-   /* tally 65536 4-bit samples in 16 counters */
+   /* tally 65536 3-bit samples in 8 counters  */
    /********************************************/
    i = 65536;
    while (i--)
       {
       int indx;
-      indx = (erandu(ru) >> 28) & 15;      /* 4 bit sample 0-15 */
+      indx = (erandu(ru) >> 28) & 7;      /* 3 bit sample 0-7 */
       tally[indx] += 1.0;        /* tally the sample */
       } /* for each sample */
    /******************************************/
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 8192.0;
    p = (double *) tally;
-   q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   q = (double *) tally + 8;
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -67,12 +67,12 @@ int main(void)
    /****************/
    /* print report */
    /****************/
-   printf("Uniform Distribution Chi Square Test Upper 4 bits\n");
+   printf("Uniform Distribution Chi Square Test Upper 3 bits\n");
    printf("Total samples 65536\n");
    printf("Chi square %f\n", chisq);
-   printf("15 degrees of freedom\n");
+   printf("7 degrees of freedom\n");
    printf("95%c of the time, the chi square is "
-      "between 6.262 and 27.488\n", '%');
+      "between 1.690 and 16.013\n", '%');
    /*******************************************************/
    /* chi square test on bits 25-28                       */
    /*******************************************************/
@@ -95,10 +95,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -137,10 +137,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -179,10 +179,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -221,10 +221,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -263,10 +263,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -305,10 +305,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -347,10 +347,10 @@ int main(void)
    /* add up the chi square from 16 counters */
    /******************************************/
    chisq = 0.0;
+   expected = 4096.0;
    p = (double *) tally;
    q = (double *) tally + 16;
-   i = 16;
-   while (i--)
+   while (p < q)
       {
       diff = expected - *p;             /* expected - actual */
       diffsq = diff * diff;             /* square the difference */
@@ -367,6 +367,7 @@ int main(void)
    printf("15 degrees of freedom\n");
    printf("95%c of the time, the chi square is "
       "between 6.262 and 27.488\n", '%');
+   printf("erandu bits 1-4 are not random.\n");
    free(ru->state);
    free(ru);
    return(0);            /* normal eoj */

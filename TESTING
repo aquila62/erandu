@@ -1,7 +1,7 @@
-The visual and amusement tests, included here, do not occur
-in dieharder or TestU01.  Dieharder and TestU01 are statistical
-test suites.  To test erandu with dieharder or TestU01, feed
-the output from eranduraw into those test suites.
+The visual and amusement tests, included in this repository, do
+not occur in dieharder or TestU01.  Dieharder and TestU01 are
+statistical test suites.  To test erandu with dieharder or TestU01,
+feed the output from eranduraw into those test suites.
 
 ------------------------------------------------------
 
@@ -14,6 +14,19 @@ and ones.
 
 ------------------------------------------------------
 
+Time erandu by running erandutim.  There are no parameters.
+
+./erandutim
+
+The output is a comparison between the performance of erandu
+and the GNU Scientific Library generator, taus2.  Taus2 is
+listed as the fastest among the strong generators in the GSL.
+100 million calls are made to each generator, and the
+number of ticks consumed by each generator forms the basis
+of comparison.
+
+------------------------------------------------------
+
 Uniform distribution chi square test.
 There are no parameters.
 
@@ -21,7 +34,7 @@ There are no parameters.
 
 The output from eranduchi is a chi square of 65536
 4-bit samples.  The number of degrees of freedom is 15.
-The chi square is computed for 4 bits as output from
+The chi square is computed for the 4 bits output from
 erandupwr().
 
 ------------------------------------------------------
@@ -30,7 +43,7 @@ Second uniform distribution chi square test.
 The unsigned integer from erandu() is tested in
 4-bit groups.
      Bits
-    29-32
+    29-31       (3 bit group)
     25-28
     21-24
     17-20
@@ -46,9 +59,9 @@ Usage:
 
 The output from uintchi for each group of 4 bits
 is a chi square of 65536 4-bit samples.  Number of
-degrees of freedom is 15.
+degrees of freedom for each group is 15.
 
-This test fails for bits 1-4.
+The test for bits 29-31 has 7 degrees of freedom. 
 
 ------------------------------------------------------
 
@@ -128,7 +141,7 @@ There are no parameters.
 
 ./mccos
 
-The output from mcsin is approximately Pi based on a
+The output from mccos is approximately Pi based on a
 Monte Carlo simulation of the area under a cosine curve
 in a 2 x pi square raised above the x axis.
 The formula for the curve is y=cos(x) + 1.
@@ -181,9 +194,11 @@ using the Box-Muller transform.
 The following is the syntax for program erandunorm.
 
 Usage:
+
 ./erandunorm mean stdev size
 
 Example:
+
 ./erandunorm 15.0 2.0 5000
 
 The R package requires an upper limit of 5000 numbers
@@ -199,7 +214,7 @@ sudo apt-get install libncurses-dev
 ./erandupat
 
 The output from erandupat is a random pattern of ASCII characters
-on a curses screen.  To quit press 'q'.
+on an 80x24 curses screen.  To quit press 'q'.
 
 ------------------------------------------------------
 
@@ -213,40 +228,7 @@ sudo apt-get install libx11-dev
 The output from erandudots is a random bitmap pattern of pixels 
 on an X Windows screen, 512x512.  To quit press 'q'.
 
-With the RANDU algorithm, this test fails, but with erandu,
-this test passes the visual test.
-
-------------------------------------------------------
-
-Create a PBM format graphic file based on the erandudots.c
-program.
-
-./erandupbm | pnmtopng >erandudots.png
-./erandupbm | display
-
-The output from erandupbm is an ASCII PBM file on stdout.
-See the picture erandudots.png for an example of this
-output.  The PBM file was converted to PNG format using
-the Netpbm package.  The conversion program is pnmtopng.
-
-The display program uses ImageMagick to display the
-PBM output file. Press 'q' to quit the display program.
-
-------------------------------------------------------
-
-Create a PPM format graphic file (in color), based on the
-erandudots.c program.
-
-./eranduppm | pnmtopng >eranduclr.png
-./eranduppm | display
-
-The output from eranduppm is a binary PPM file on stdout.
-See the picture eranduclr.png for an example of this
-output.  The PBM file was converted to PNG format using
-the Netpbm package.  The conversion program is pnmtopng.
-
-The display program uses ImageMagick to display the
-PPM output file. Press 'q' to quit the display program.
+This test fails with the original RANDU algorithm.
 
 ------------------------------------------------------
 
@@ -255,7 +237,7 @@ This test requires X Windows.  See sudo apt-get above.
 
 ./tstwlk.sh
 
-The output from tstwlksh is a random walk relative to a midpoint
+The output from tstwlk.sh is a random walk relative to a midpoint
 line on an X Windows screen.  To quit press any key.
 
 ------------------------------------------------------
@@ -271,7 +253,30 @@ Usage:
 
 echo "text" | captcha | pnmtopng >mycaptcha.png
 
-Uses font.txt 12x24 font file.
+Uses font.txt, a 12x24 font file.
+
+------------------------------------------------------
+
+Create a picture of random dots in black and white.
+There are no parameters for this test.
+
+./tstpbm.sh
+
+The output from this test is a picture of random black
+and white dots in the PNG format.  The original RANDU
+algorithm fails this test, because the picture is not
+random.
+
+------------------------------------------------------
+
+Create a picture of random dots in 24-bit color.
+There are no parameters for this test.
+
+./tstppm.sh
+
+The output from this test is a PNG picture of random dots
+in 24-bit color.  The original RANDU algorithm fails this
+test, because the picture is not random.
 
 ------------------------------------------------------
 
@@ -322,7 +327,7 @@ into a down stream test suite.
 
 The output from tstdie.sh is a statistical report.
 This is a long running test.  To interrupt press CTRL-C.
-The first test takes half minute to print a report.
+The first test takes a half minute to print a report.
 
 ------------------------------------------------------
 
@@ -351,7 +356,9 @@ Example:
 
 tstencr.sh /vmlinuz abcdef
 
-The output shows two identical md5sum strings.
+The output shows two identical md5sum strings.  The first
+md5sum is before encrypting the data.  The second md5sum
+is the result of double encryption.
 
 ----
 
@@ -402,78 +409,9 @@ This is a long running test.  Press CTL-C to interrupt it.
 
 ------------------------------------------------------
 
-z80rnd.c --- Test the original randu algorithm
-
-This program is used to verify the output of
-randu.z80.  See the description of randu.z80 below.
-
-Usage:
-
-./z80rnd count
-
-Where count is 1 to 65535
-
-The z80rnd program uses two algorithms to implement
-the randu random number generator.  The seed is
-initialized to 1.
-
-The output of z80rnd is the randu seed in two
-formats, big endian and little endian.  The big endian
-format represents the first algorithm, multiplication
-by 65539.  The little endian format represents the second
-algorithm, multiplying with shifts and adds.
-
-------------------------------------------------------
-
-randu.z80 --- randu algorithm in Z80 assembler
-
-This program implements the randu algorithm on an
-8-bit Z80 computer.  This program depends on two
-packages, z80asm and yaze-1.14.
-
-sudo apt-get install z80asm
-
-Download the yaze emulator, version 1.14, from Thomas
-Sherrer's website.
-
-http://www.z80.info/z80emu.htm#EMU_CPU_UNIX
-
-This page points to the yaze website at:
-
-ftp://ftp.ping.de/pub/misc/emulators/yaze-1.14.tar.gz
-
-Download yaze-1.14.tar.gz or a later version.
-Run the make command to compile the source.
-Ignore the warning messages from the compile.
-Run the yaze command to emulate a Z80 CP/M 2.2 system.
-Mount the directory where you compiled randu.z80.
-See the yaze documentation for the mount command.
-The compiled output of randu.z80 is called randu.com.
-
-See the description of z80rnd.c above.  The z80rnd program
-verifies the results of randu.z80.
-
-Usage:
-
-randu count
-
-Where count is 1 to 65535
-
-The initial seed is set to 1.
-
-The output of randu.com is the randu seed after
-count generations.  The value of that seed should
-match the output of the z80rnd program above.
-
-A missing parameter message is "0 ?".
-
-See the two pictures randudots.png and randuclr.png
-in this repository, for examples of how the randu
-algorithm fails randomness tests.
-
-------------------------------------------------------
-
 The website for erandu is at https://aquila62.github.io.
+
 See README.erandu for general information about erandu.
+
 See INSTALL for installing this repository.
 

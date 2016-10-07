@@ -23,7 +23,8 @@ OBJ=captcha.o \
 	erandu.o \
 	eranduunif.o \
 	eranduint.o \
-	erandupwr.o
+	erandupwr.o \
+	erandubit.o
 
 CC=gcc
 
@@ -51,6 +52,9 @@ eranduint.o:			eranduint.c
 
 erandupwr.o:			erandupwr.c
 		$(CC) $(CFLAGS) erandupwr.c
+
+erandubit.o:			erandubit.c
+		$(CC) $(CFLAGS) erandubit.c
 
 clean:
 		rm -f captcha $(OBJ)

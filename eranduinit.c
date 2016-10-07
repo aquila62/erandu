@@ -87,10 +87,11 @@ rufmt *eranduinit(void)
    dttk = (unsigned int) (now ^ clk) | 1;
    /* initialize the erandu state to date,time,ticks       */
    /* the initial seed must be an odd number               */
-   ru->s = dttk;      /* initialize s to combined dttk     */
+   ru->s = dttk | 1;      /* initialize s to combined dttk     */
 
    /***************************************************/
    /* Warm up the erandu state.                       */
+   /* ru->s is truncated to 31 bits                   */
    /***************************************************/
    i = 128;
    while (i--) RANDU;
@@ -99,8 +100,10 @@ rufmt *eranduinit(void)
    /* initialize out, prev, and prev prev             */
    /* to random values                                */
    /***************************************************/
-   ru->pprev = RANDU;           /* set to random UINT */
-   ru->prev  = RANDU;           /* set to random UINT */
+   RANDU;
+   ru->pprev = ru->s;           /* set to random 31-bit UINT */
+   RANDU;
+   ru->prev  = ru->s;           /* set to random 31-bit UINT */
 
    /***************************************************/
    /* initialize the state array to random values     */
@@ -109,7 +112,8 @@ rufmt *eranduinit(void)
    stq = (unsigned int *) ru->state + STATES;
    while (stp < stq)
       {
-      *stp++ = RANDU;           /* set to random UINT */
+      RANDU;                    /* set to random 31-bit UINT */
+      *stp++ = ru->s;           /* set to random UINT */
       } /* for each member in ru->state array */
 
    /***************************************************/

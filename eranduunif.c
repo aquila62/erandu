@@ -23,7 +23,7 @@
 /* For a slower method with higher precision, use         */
 /* erandubit() instead.                                    */
 
-#define MAXINT 4294967296.0
+#define MAXINT 2147483648.0
 
 #include "erandu.h"
 
