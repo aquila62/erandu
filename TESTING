@@ -232,6 +232,64 @@ This test fails with the original RANDU algorithm.
 
 ------------------------------------------------------
 
+Create a PBM format graphic file based on the erandudots.c
+program.
+
+./erandupbm | pnmtopng >erandudots.png
+./erandupbm | display
+
+The output from erandupbm is an ASCII PBM file on stdout.
+See the picture erandudots.png for an example of this
+output.  The PBM file was converted to PNG format using
+the Netpbm package.  The conversion program is pnmtopng.
+
+The display program uses ImageMagick to display the
+PBM output file. Press 'q' to quit the display program.
+
+------------------------------------------------------
+
+Create a PPM format graphic file (in color), based on the
+erandudots.c program.
+
+./eranduppm | pnmtopng >eranduclr.png
+./eranduppm | display
+
+The output from eranduppm is a binary PPM file on stdout.
+See the picture eranduclr.png for an example of this
+output.  The PBM file was converted to PNG format using
+the Netpbm package.  The conversion program is pnmtopng.
+
+The display program uses ImageMagick to display the
+PPM output file. Press 'q' to quit the display program.
+
+------------------------------------------------------
+
+The following two tests implement the previous two tests
+with two shell scripts.
+
+Create a picture of random dots in black and white.
+There are no parameters for this test.
+
+./tstpbm.sh
+
+The output from this test is a picture of random black
+and white dots in the PNG format.  The original RANDU
+algorithm fails this test, because the picture is not
+random.
+
+------------------------------------------------------
+
+Create a picture of random dots in 24-bit color.
+There are no parameters for this test.
+
+./tstppm.sh
+
+The output from this test is a PNG picture of random dots
+in 24-bit color.  The original RANDU algorithm fails this
+test, because the picture is not random.
+
+------------------------------------------------------
+
 Random Walk Test:  ranwlk
 This test requires X Windows.  See sudo apt-get above.
 
@@ -254,29 +312,6 @@ Usage:
 echo "text" | captcha | pnmtopng >mycaptcha.png
 
 Uses font.txt, a 12x24 font file.
-
-------------------------------------------------------
-
-Create a picture of random dots in black and white.
-There are no parameters for this test.
-
-./tstpbm.sh
-
-The output from this test is a picture of random black
-and white dots in the PNG format.  The original RANDU
-algorithm fails this test, because the picture is not
-random.
-
-------------------------------------------------------
-
-Create a picture of random dots in 24-bit color.
-There are no parameters for this test.
-
-./tstppm.sh
-
-The output from this test is a PNG picture of random dots
-in 24-bit color.  The original RANDU algorithm fails this
-test, because the picture is not random.
 
 ------------------------------------------------------
 
@@ -409,9 +444,80 @@ This is a long running test.  Press CTL-C to interrupt it.
 
 ------------------------------------------------------
 
-The website for erandu is at https://aquila62.github.io.
+z80rnd.c --- Test the original randu algorithm
+
+This program is used to verify the output of
+randu.z80.  See the description of randu.z80 below.
+
+Usage:
+
+./z80rnd count
+
+Where count is 1 to 65535
+
+The z80rnd program uses two algorithms to implement
+the randu random number generator.  The seed is
+initialized to 1.
+
+The output of z80rnd is the randu seed in two
+formats, big endian and little endian.  The big endian
+format represents the first algorithm, multiplication
+by 65539.  The little endian format represents the second
+algorithm, multiplying with shifts and adds.
+
+------------------------------------------------------
+
+randu.z80 --- randu algorithm in Z80 assembler
+
+This program implements the randu algorithm on an
+8-bit Z80 computer.  This program depends on two
+packages, z80asm and yaze-1.14.
+
+sudo apt-get install z80asm
+
+Download the yaze emulator, version 1.14, from Thomas
+Sherrer's website.
+
+http://www.z80.info/z80emu.htm#EMU_CPU_UNIX
+
+This page points to the yaze website at:
+
+ftp://ftp.ping.de/pub/misc/emulators/yaze-1.14.tar.gz
+
+Download yaze-1.14.tar.gz or a later version.
+Run the make command to compile the source.
+Ignore the warning messages from the compile.
+Run the yaze command to emulate a Z80 CP/M 2.2 system.
+Mount the directory where you compiled randu.z80.
+See the yaze documentation for the mount command.
+The compiled output of randu.z80 is called randu.com.
+
+See the description of z80rnd.c above.  The z80rnd program
+verifies the results of randu.z80.
+
+Usage:
+
+randu count
+
+Where count is 1 to 65535
+
+The initial seed is set to 1.
+
+The output of randu.com is the randu seed after
+count generations.  The value of that seed should
+match the output of the z80rnd program above.
+
+A missing parameter message is "0 ?".
+
+See the two pictures randudots.png and randuclr.png
+in this repository, for examples of how the randu
+algorithm fails randomness tests.
+
+------------------------------------------------------
 
 See README.erandu for general information about erandu.
 
 See INSTALL for installing this repository.
+
+The website for erandu is at https://aquila62.github.io.
 
