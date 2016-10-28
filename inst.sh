@@ -22,6 +22,7 @@ make -f mcsph.mak
 make -f pair.mak
 make -f poischi.mak
 make -f pwrball.mak
+make -f qmatch.mak
 make -f ranwlk.mak
 make -f tsterandu.mak
 make -f uintchi.mak

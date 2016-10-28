@@ -40,7 +40,7 @@ unsigned int erandu(rufmt *ru)
    /**********************************************************/
    /* calculate a 10-bit offset into the state array         */
    /* See the Bays-Durham shuffle below.                     */
-   ru->ofst  = ru->pprev >> 21;   /* offset into state array */
+   ru->ofst  = ru->out >> 21;   /* offset into state array   */
    ru->pprev = ru->prev;   /* prev prev <== prev             */
    ru->prev  = ru->s;      /* prev <== current               */
    /* calculate new current state                            */

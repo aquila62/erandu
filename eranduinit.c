@@ -101,6 +101,8 @@ rufmt *eranduinit(void)
    /* to random values                                */
    /***************************************************/
    RANDU;
+   ru->out   = ru->s;           /* set to random 31-bit UINT */
+   RANDU;
    ru->pprev = ru->s;           /* set to random 31-bit UINT */
    RANDU;
    ru->prev  = ru->s;           /* set to random 31-bit UINT */
