@@ -15,6 +15,7 @@ make -f genalfa.mak
 make -f gendna.mak
 make -f mcbell.mak
 make -f mccos.mak
+make -f mchain.mak
 make -f mcparab.mak
 make -f mcpi.mak
 make -f mcsin.mak
