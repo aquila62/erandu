@@ -1,4 +1,4 @@
-Installing etaus:
+Installing erandu:
 
 Be sure you have installed the GNU Scientific Library.
 
@@ -12,14 +12,14 @@ Next compile the programs.
 
 ./inst.sh
 
-To de-install etaus:
+To de-install erandu:
 
 ./deinst.sh
 
-To see how to test etaus, read TESTING.
+To see how to test erandu, read TESTING.
 Some of these test programs use new curses, X Windows,
 and dieharder.
 
-To read about the etaus generator, read README.etaus.
+To read about the erandu generator, read README.erandu.
 
-To see the etaus website, go to https://aquila62.github.io 
+To see the erandu website, go to https://aquila62.github.io 
