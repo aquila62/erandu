@@ -23,8 +23,7 @@
 /* The caller is welcome to override the following:          */
 /* the state array                                           */
 /* the two previous outputs                                  */
-/* the current output                                        */
-/* the three states for the erandu algorithm                 */
+/* the current output (seed)                                 */
 /*                                                           */
 /* The period length of erandu is estimated to be            */
 /* 5.41e+2639.                                               */
